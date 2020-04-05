@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <title>ECE1779 Dynamo</title>
+</head>
+<body>
+<ul>
+    <li><a href="{{ url_for('dynamo')}}">Database</a></li>
+
+</ul>
+<ul>
+    <li><a href="{{ url_for('load_reddit')}}">Load new reddit posts</a></li>
+
+</ul>
+<html>
+    <body>
+
+        <form method='post' action='comprehend' style="max-width:200px;margin:auto">
+            <h1>Input post text</h1>
+            {{ error if error != None }}<br>
+            <div class="input-container">
+                <textarea class="input-field" type='text' name='text' value="{{text if text != None}}" rows="10" cols="30"></textarea>
+            </div>
+            <button type="submit" class="btn">Upload</button>
+        </form><br>
+        <textarea id="result2" type="textbox"  rows="10" cols="30">
+            {{result if result != None}}
+        </textarea>
+    </body>
+</html>

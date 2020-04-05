@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <title>ECE1779 Dynamo</title>
+</head>
+<html>
+    <body>
+        <ul>
+            <li><a href="{{ url_for('create_table')}}">Create Table</a></li>
+
+            <li><a href="{{ url_for('delete_table')}}">Delete Table</a></li>
+        </ul>
+
+
+
+        <ul>
+            <li><a href="{{ url_for('load_data')}}">Load Data</a></li>
+        </ul>
+
+        <ul>
+            <li><a href="{{ url_for('list_all',indexName='CreateDateIndex')}}">List All (CreateDateIndex)</a></li>
+            <li><a href="{{ url_for('list_all',indexName='EmotionIndex')}}">List All (EmotionIndex)</a></li>
+            <li><a href="{{ url_for('list_all',indexName='AddressIndex')}}">List All (AddressIndex)</a></li>
+        </ul>
+
+        <ul>
+            <li>
+                <form action="{{ url_for('query_createdate')}}">
+                    Issues created on <input type="text" name="date" placeholder="yyyy-mm-dd"/> <input type="submit" />
+                </form>
+            </li>
+            <li>
+                <form action="{{ url_for('query_emotion')}}">
+                    Issues with emotion <input type="text" name="emotion" /> <input type="submit" />
+                </form>
+            </li>
+            <li>
+                <form action="{{ url_for('query_address')}}">
+                    Issues with post address <input type="text" name="postaddress" /> <input type="submit" />
+                </form>
+            </li>
+
+        </ul>
+
+
+    <body>    
+</html>
