@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <title>Registration</title>
+        <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.icon {
+  padding: 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btn {
+  background-color: #ff5bb0;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+.btn3 {
+  background-color: dodgerblue;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 10%;
+  opacity: 0.9;
+}
+
+.btn3:hover {
+  opacity: 1;
+}
+
+</style>
+    </head>
+    <body>
+    <center><h1>Registration</h1></center>
+    <form action="{{url_for('main')}}" method='get' align='left'>
+        <button type="submit" class="btn3">Back to login</button>
+<!--        <div><input type="submit" value="Back to login"></div>-->
+    </form><br>
+
+    <form action="{{url_for('user_create_save')}}" method='post' style="max-width:200px;margin:auto">
+
+        <div class='error'>{{error_msg if error_msg != None}}</div><br>
+         <div class="input-container">
+<!--        <label>Username</label>-->
+         <input class="input-field" placeholder="Username" type='text' name='username' value='{{username if username  != None}}' maxlength="100">
+        </div>
+        
+         <div class="input-container">
+<!--        <label>Password</label>-->
+         <input class="input-field"  placeholder="Password"  type='password' name='password' value='{{password if password != None}}' maxlength="100">
+        </div>
+
+        <button type="reset" class="btn">Reset</button><br><br>
+        <button type="submit" class="btn">Register</button>
+<!--        <input type="reset">-->
+<!--        <input type="submit" value="Save">-->
+        </form>
+    </body>
+
+</html>

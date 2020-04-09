@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="{{url_for('user_interface')}}" method='get' align="left">
+        <button type="submit" class="btn2">Back to Menu</button>
+</form><br>
+
+<form action="/test/FileUpload"  enctype="multipart/form-data" method="post" style="max-width:400px;margin:auto">
+
+    <center> {{ error if error != None }}<br>What is the image file to upload?<br><br>
+        <div class="a"><input type="file" name="uploadedfile" accept="image/*"></div><br>
+    </center><br>
+
+    <button type="reset" class="btn">Reset</button><br><br>
+    <button type="submit" class="btn">Upload</button>
+
+    <h1>Sentiment Analysis</h1>
+    <textarea id="sentiment" type="textbox"  rows="35" cols="50">
+        {{text if text != None}}
+    </textarea>
+
+</form>
+
+
+
+{% endblock %}

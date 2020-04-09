@@ -1,5 +1,5 @@
 
-from flask import render_template, url_for
+from flask import render_template, url_for, redirect
 from app import webapp
 
 import datetime
@@ -7,7 +7,7 @@ import datetime
 
 @webapp.route('/')
 def main():
-    return render_template("main.html")
+    return redirect(url_for('login_v2'))
 
 
 

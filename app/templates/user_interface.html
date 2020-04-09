@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<head>
+    <title>ECE1779 Dynamo</title>
+</head>
+ <style>
+div.a {
+  text-indent: 50px;
+}div.a2 {
+  text-indent: 20%;
+}
+/* Set a style for the submit button */
+.btn {
+  background-color: #ff5bb0;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+.btn2 {
+  background-color: dodgerblue;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 10%;
+  opacity: 0.9;
+}
+
+.btn3:hover {
+  opacity: 1;
+}
+.btn3 {
+  background-color: dodgerblue;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn2:hover {
+  opacity: 1;
+}
+</style>
+<body>
+
+<form action="{{url_for('logout')}}" method='get' align="right">
+        Logged in as : {{user}}
+        <button type="submit" class="btn2">Logout</button>
+    </form><br><br><br><br>
+
+
+<html>
+    <body>
+    <center>
+        <form method='post' action='{{ url_for('comprehend')}}' style="max-width:200px;margin:auto">
+            <ul>
+                <li><a href="{{ url_for('textextract')}}">ImageUpload</a></li>
+
+            </ul>
+
+            <h1>Text Input</h1>
+            {{ error if error != None }}<br>
+            <div class="input-container">
+                <textarea class="input-field" type='text' name='text'  placeholder="Target text to analyse" rows="10" cols="30">
+                    {{Text if Text != None}}
+                </textarea>
+            </div>
+
+
+            <br>
+            Target Language:
+
+                <select name="target_lan">
+                    <option value="en">English</option>
+                    <option value="ar">Arabic</option>
+                  <option value="zh">Chinese</option>
+                  <option value="cs">Czech</option>
+                  <option value="da">Danish</option>
+                  <option value="nl">Dutch</option>
+                  <option value="fi">Finnish</option>
+                  <option value="fr">French</option>
+                  <option value="de">German</option>
+                  <option value="da">Danish</option>
+                  <option value="nl">Dutch</option>
+                  <option value="el">Greek</option>
+                  <option value="he">Hebrew</option>
+                  <option value="hi">Hindi</option>
+                  <option value="hu">Hungarian</option>
+                  <option value="id">Indonesian</option>
+                  <option value="it">Italian</option>
+                  <option value="ja">Japanese</option>
+                  <option value="ko">Korean</option>
+                  <option value="ms">Malay</option>
+                  <option value="no">Norwegian</option>
+                  <option value="fa">Persian</option>
+                  <option value="pl">Polish</option>
+                  <option value="pt">Portuguese</option>
+                  <option value="ro">Romanian</option>
+                  <option value="ru">Russian</option>
+                  <option value="es">Spanish</option>
+                  <option value="sv">Swedish</option>
+                  <option value="th">Thai</option>
+                  <option value="tr">Turkish</option>
+                  <option value="uk">Ukrainian</option>
+                  <option value="ur">Urdu</option>
+                  <option value="vi">Vietnamese</option>
+                </select>
+
+                <br><br>
+            <button type="submit" class="btn3">Analyze</button> <br>
+            <h1>Translated text</h1>
+            <textarea id="translatedtext" type="textbox"  rows="10" cols="30">
+                {{translatedText if translatedText != None}}
+            </textarea>
+        <br><br>
+        <h1>Sentiment Analysis</h1>
+        <textarea id="sentiment" type="textbox"  rows="10" cols="30">
+            {{sentiment if sentiment != None}}
+        </textarea>
+        <h1>Grammar Check</h1>
+        <textarea id="grammar_result" type="textbox"  rows="10" cols="30">
+            {{grammar if grammar!= None}}
+        </textarea>
+        </center>
+    </body>
+</html>

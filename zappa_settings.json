@@ -1,16 +1,25 @@
 {
     "dev": {
-       "project_name": "dynamodb",
+       "project_name": "ece1779project",
        "keep_warm": false,
        "debug": true,
        "log_level": "DEBUG",
-       "s3_bucket": "ece1779yan123please2",
+       "s3_bucket": "ece1779yan214",
        "app_function": "app.webapp",
        "http_methods": ["GET","POST"],
        "parameter_depth": 1,
        "timeout_seconds": 300,
-       "memory_size": 128,
-       "use_precompiled_packages": true
+       "memory_size": 2048,
+       "use_precompiled_packages": true,
+       "extra_permissions": [{
+            "Effect": "Allow",
+            "Action": ["comprehend:*"],
+            "Resource": "*"
+        },{
+            "Effect": "Allow",
+            "Action": ["translate:*"],
+            "Resource": "*"
+        }]
     }
 }
 
