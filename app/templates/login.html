@@ -21,8 +21,11 @@
             <div class="panel panel-login">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-xs-6">
                             <a href="#" class="active" id="login-form-link">Login</a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="#" id="register-form-link">Register</a>
                         </div>
                     </div>
                     <hr>
@@ -30,7 +33,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="login-form" action="login_submit_v2" method="post" role="form"
+                            <form id="login-form" action="{{ url_for('login_submit_v2') }}" method="post" role="form"
                                   style="display: block;">
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1"
@@ -50,12 +53,35 @@
                                     </div>
                                 </div>
                             </form>
+                            <form id="register-form" action="{{ url_for('user_create_save') }}" method="post"
+                                  role="form" style="display: none;">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="register-username" tabindex="1"
+                                           class="form-control"
+                                           placeholder="Username" value='{{username if username  != None}}' maxlength="100">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="register-password" tabindex="2"
+                                           class="form-control" placeholder="Password" value='{{password if password != None}}' maxlength="100">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="confirm_password" id="register-confirm-password"
+                                           tabindex="2"
+                                           class="form-control" placeholder="Confirm Password" value='{{password if password != None}}' maxlength="100">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="register-submit" id="register-submit"
+                                                   tabindex="4" class="form-control btn btn-register"
+                                                   value="Register Now">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <form action="{{url_for('user_create')}}" method="get" style="max-width:200px; margin:auto">
-                    <a type="submit" class="btn">New User? Click here to register</a>
-                </form>
                 <div class="panel-footer text-center">
                     <p id="log-hint" class="text-warning"> {{ error if error != None }} </p>
                 </div>
