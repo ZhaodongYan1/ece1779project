@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+.textAreaColumn{
+    width:100%;
+}
+.textAreaColumn div{
+    float:left;
+    width:50%;
+    padding:40px;
+    box-sizing: border-box;
+}
+
+.textAreaColumn div span{
+    display:block;
+    text-align:center;
+}
+
+
+</style>
+<body>
+
+<form action="{{url_for('user_interface')}}" method='get' align="left">
+        <button type="submit">Back to Menu</button>
+</form>
+<br>
+        <h1>Grammar checker</h1>
+        <form method='post' action='{{ url_for('grammar_submit')}}'>
+            <div class="textAreaColumn">
+                <div>
+                    <span>Text Input</span>
+                    <textarea class="input-field"  name='text'
+                              placeholder="Target text to check"
+                              style="align-content:left" rows="20" cols="80">{{Text if Text != None}}</textarea>
+                </div>
+
+            </div>
+            <span>Grammar check result</span><br>
+            From: {{original if original!= None}}
+             <br>
+            To: {{corrected if corrected!= None}}
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div><button type="submit">Analyze</button> <br></div>
+
+
+    </form>
+    </center>
+</body>
+</html>
+
+

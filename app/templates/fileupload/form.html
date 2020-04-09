@@ -5,7 +5,7 @@
         <button type="submit" class="btn2">Back to Menu</button>
 </form><br>
 
-<form action="/test/FileUpload"  enctype="multipart/form-data" method="post" style="max-width:400px;margin:auto">
+<form action="{{ url_for('file_upload')}}"  enctype="multipart/form-data" method="post" style="max-width:400px;margin:auto">
 
     <center> {{ error if error != None }}<br>What is the image file to upload?<br><br>
         <div class="a"><input type="file" name="uploadedfile" accept="image/*"></div><br>
@@ -13,8 +13,12 @@
 
     <button type="reset" class="btn">Reset</button><br><br>
     <button type="submit" class="btn">Upload</button>
+    <br><br>
+    {% if url_!=None %}
+    <div class="ex1"><img src="{{ url_ }}" alt="image" , style="width:400px",class="center"></div>
+    {% endif %}
 
-    <h1>Sentiment Analysis</h1>
+    <h1>Image2Text Result</h1>
     <textarea id="sentiment" type="textbox"  rows="35" cols="50">
         {{text if text != None}}
     </textarea>

@@ -4,8 +4,7 @@ from datetime import datetime
 import os, hashlib, uuid, re
 
 import json
-import mysql.connector
-from threading import Thread
+
 import random
 from boto3.dynamodb.conditions import Key
 import boto3
@@ -34,7 +33,7 @@ def file_upload():
     # check if the post request has the file part
     if 'uploadedfile' not in request.files:
         session['error2']= "Error: Missing uploaded file"
-        return redirect(url_for('upload_form'))
+        return redirect(url_for('upload_form'), url_=None)
 
     new_file = request.files['uploadedfile']
 
@@ -42,37 +41,38 @@ def file_upload():
     # submit a empty part without filename
     if new_file.filename == '':
         session['error2'] = "Error: Missing uploaded file"
-        return redirect(url_for('upload_form'))
+        return redirect(url_for('upload_form'), url_=None)
 
     filename_full = new_file.filename
     index = filename_full.rfind('.')
     filename = filename_full[:index]+str(datetime.timestamp(datetime.now())).replace('.','')
-    print(filename)
     # filename=new_file.filename.replace('.', str(datetime.timestamp(datetime.now())).replace('.','')+'.')
     new_file.seek(0, os.SEEK_END)
     size = new_file.tell()
     if size>1E8:
+
         session['error2'] = "Error: Selected Image too large(>100MB)"
-        return redirect(url_for('upload_form'))
+        return redirect(url_for('upload_form'), url_=None)
 
     # Get the service client and upload to the s3 bucket
     new_file.seek(0)
     s3 = boto3.client('s3')
-    s3.upload_fileobj(new_file, '1779image', filename, ExtraArgs={"ContentType": "image/jpeg"})
+    username = session['username']
+    s3.upload_fileobj(new_file, 'ece1779project', username+'/textract/'+filename, ExtraArgs={"ContentType": "image/jpeg"})
 
     # from PIL import Image
     # testfile = Image.frombytes("RGB",(128,128),new_file)
     # get the url of the upload image
     url = s3.generate_presigned_url(
         'get_object',
-        Params={'Bucket': '1779image', 'Key': filename})
+        Params={'Bucket': 'ece1779project', 'Key': username+'/textract/'+filename})
 
     textract = boto3.client('textract')
     response = textract.detect_document_text(
         Document={
             'S3Object':{
-                'Bucket':'1779image',
-                'Name':filename
+                'Bucket':'ece1779project',
+                'Name':username+'/textract/'+filename
             }
         }
     )
@@ -80,7 +80,8 @@ def file_upload():
     result = response['Blocks']
     for e in result:
         try:
-            text.append(e['Text'])
+            if e['BlockType']=='WORD':
+                text.append(e['Text'])
         except:
             pass
     text = ' '.join(text)
@@ -90,7 +91,7 @@ def file_upload():
     if 'error2' in session:
         e = session['error2']
         session.pop('error2', None)
-    return render_template("fileupload/form.html", error=e,text=text)
+    return render_template("fileupload/form.html", error=e,text=text, url_=url)
 
 @webapp.route('/api/upload',methods=['GET'])
 #Return file upload form
