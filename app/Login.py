@@ -7,14 +7,13 @@ import re, json
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 
-
-
 webapp.secret_key = '\x80\xa9s*\x12\xc7x\xa9d\x1f(\x03\xbeHJ:\x9f\xf0!\xb1a\xaa\x0f\xee'
+
+
 @webapp.route('/logout',methods=['GET','POST'])
 def logout():
     session.clear()
     return redirect(url_for('login_v2'))
-
 
 
 @webapp.route('/login_v2',methods=['GET','POST'])
@@ -30,7 +29,9 @@ def login_v2():
     if 'error' in session:
         e = session['error']
         session.pop('error', None)
-    return render_template("main.html",error=e,username=uname)
+    return render_template("login.html", error=e, username=uname)
+
+
 # url_for('static', filename='coke.jpg')
 @webapp.route('/login_submit_v2',methods=['POST'])
 def login_submit_v2():
@@ -76,9 +77,10 @@ def login_submit_v2():
         session['error'] = "Error! Incorrect username or password!"
         return redirect(url_for('login_v2'))
 
+
 @webapp.route('/user/create',methods=['GET'])
 def user_create():
-    return render_template("new.html",title="New User")
+    return render_template("login.html", title="New User")
 
 
 @webapp.route('/user/create', methods=['POST'])
@@ -117,11 +119,12 @@ def user_create_save():
             table.put_item(Item=response)
 
     if error:
-        return render_template("new.html", title="New User", error_msg=error_msg, username=username,  password=password)\
+        return render_template("login.html", title="New User", error=error_msg, username=username,  password=password)\
 
     session['error']='Registration complete. Please sign in'
     session['username'] = username
     return redirect(url_for('login_v2'))
+
 
 @webapp.route('/user_interface', methods=['GET', 'POST'])
 def user_interface():

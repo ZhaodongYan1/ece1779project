@@ -1,3 +1,6 @@
 # Project exclude paths
 /venv/
 .DS_Store
+.idea/misc.xml
+.idea/misc.xml
+.idea/ece1779project.iml
