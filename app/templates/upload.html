@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="{{url_for('logout')}}" method='get' align="right">
+        Logged in as : {{user}}
+        <button type="submit" class="btn2">Logout</button>
+    </form><br><br><br><br>
+<form action="{{url_for('upload_form')}}" method='get' style="max-width:200px;margin:auto">
+        <button type="submit" class="btn">Image Upload</button>
+    </form><br>
+
+<form action="{{url_for('image_list')}}" method='get' style="max-width:200px;margin:auto">
+        <button type="submit" class="btn">Browse Images</button>
+    </form><br>
+<!--    <a class="myButton" href="{{url_for('upload_form')}}">Image Upload</a><br><br>-->
+<!--    <a class="myButton" href="{{url_for('image_list')}}">Browse Images</a><br><br>-->
+
+
+<!--    Logged in as : {{user}}-->
+<!--    <button class="btn2" onclick="window.location.href='{{url_for('logout')}}';">Logout</button>-->
+{% endblock %}

@@ -1,29 +1,69 @@
 <!DOCTYPE html>
 <head>
-    <title>ECE1779 Dynamo</title>
+    <title>Login</title>
+    <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.icon {
+  padding: 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btn {
+  background-color: dodgerblue;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+</style>
 </head>
-<body>
-<ul>
-    <li><a href="{{ url_for('dynamo')}}">Database</a></li>
-
-</ul>
-<ul>
-    <li><a href="{{ url_for('load_reddit')}}">Load new reddit posts</a></li>
-
-</ul>
 <html>
     <body>
-
-        <form method='post' action='comprehend' style="max-width:200px;margin:auto">
-            <h1>Input post text</h1>
+        <form method='post' action='login_submit_v2' style="max-width:200px;margin:auto">
+            <h1>Login Page</h1>
             {{ error if error != None }}<br>
             <div class="input-container">
-                <textarea class="input-field" type='text' name='text' value="{{text if text != None}}" rows="10" cols="30"></textarea>
+                <input class="input-field" placeholder="Username" type='text' name='username' value='{{username if username != None}}' maxlength="100">
             </div>
-            <button type="submit" class="btn">Upload</button>
+            
+            <div class="input-container">
+                <input class="input-field"  placeholder="Password" type='password' name='password'  value='{{password if password != None}}' maxlength="100">
+            </div>
+
+            <button type="submit" class="btn">Login</button>
         </form><br>
-        <textarea id="result2" type="textbox"  rows="10" cols="30">
-            {{result if result != None}}
-        </textarea>
+        <form action="{{url_for('user_create')}}" method="get" style="max-width:200px; margin:auto">
+            <button type="submit" class="btn">New User? Click here to register</button>
+        </form>
+
     </body>
 </html>
