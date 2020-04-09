@@ -125,10 +125,12 @@ div.a {
         <textarea id="sentiment" type="textbox"  rows="10" cols="30">
             {{sentiment if sentiment != None}}
         </textarea>
+        </form>
         <h1>Grammar Check</h1>
-        <textarea id="grammar_result" type="textbox"  rows="10" cols="30">
-            {{grammar if grammar!= None}}
-        </textarea>
-        </center>
+        <div class="ex1">From: {{original if original!= None}}</div>
+
+        <br>
+        <div class="ex1"> To: {{corrected if corrected!= None}}</div>
+    </center>
     </body>
 </html>

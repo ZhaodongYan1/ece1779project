@@ -3,9 +3,11 @@ import boto3
 
 from boto3.dynamodb.conditions import Key
 
-from flask import render_template, url_for, redirect, request, session
+from flask import render_template, url_for, redirect, request, session, Markup
 from app import webapp
 from app.dynamo import putItem
+from app.gingerit_custom import GingerIt
+
 #dynamodb = boto3.resource('dynamodb', region_name='us-east-1', endpoint_url="http://localhost:8000")
 
 
@@ -71,15 +73,40 @@ def load_reddit():
 
 @webapp.route('/comprehend',methods=['POST','GET'])
 def comprehend():
-
+    import re
     text = request.form.get('text')
     targetLang = request.form.get('target_lan')
     translatedText = translate(text,targetLang=targetLang)
 
     sentiment = getSentiment(text)
-    from gingerit.gingerit import GingerIt
-    grammar=GingerIt().parse(text)['result']
-    return render_template("user_interface.html",user=session['username'], Text=text, sentiment=sentiment,translatedText=translatedText,text=text,grammar=grammar)
+    if len(text)>590:
+        print(text)
+        tmp=0
+        color_result_=''
+        color_text_=''
+        regex = re.compile("[,.!?:]")
+        text = re.sub('([.,!?:])', r'\1 ', text)
+        text = re.sub('\s{2,}', ' ', text)
+        words=text.split()
+        for i, item in enumerate(words):
+            if regex.search(item)!=None:
+                results=GingerIt().parse(' '.join(words[tmp:i+1]))
+                color_result_ +=results['color_r']
+                color_text_ +=results['color_t']
+                tmp=i+1
+        if tmp!=len(words)+1:
+            results = GingerIt().parse(' '.join(words[tmp:]))
+            color_result_ += results['color_r']
+            color_text_ += results['color_t']
+
+        color_result=Markup(color_result_)
+        color_text=Markup(color_text_)
+
+    else:
+        results=GingerIt().parse(text)
+        color_result=Markup(results['color_r'])
+        color_text=Markup(results['color_t'])
+    return render_template("user_interface.html",user=session['username'], Text=text, sentiment=sentiment,translatedText=translatedText,text=text,corrected=color_result, original=color_text)
 
 @webapp.route('/textextract',methods=['POST','GET'])
 def textextract():
