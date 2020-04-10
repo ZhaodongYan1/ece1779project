@@ -1,5 +1,9 @@
 # Project exclude paths
 /venv/
 .DS_Store
-.idea/*
-.idea/ece1779project.iml
+.idea/
+*.pyc
+*.xml
+*.iml
+*.iml
+*.xml
