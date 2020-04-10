@@ -1,30 +1,43 @@
-{% extends "base.html" %}
+{% extends "user_interface.html" %}
 {% block content %}
 
-<form action="{{url_for('user_interface')}}" method='get' align="left">
-        <button type="submit" class="btn2">Back to Menu</button>
-</form><br>
+{% if error %}
+<div class="alert alert-info alert-server" role="alert">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>Error: </strong> {{ error }}
+</div>
+{% endif%}
 
+<center>
+<h1>Text Extraction</h1>
 <form action="{{ url_for('file_upload')}}"  enctype="multipart/form-data" method="post" style="max-width:400px;margin:auto">
-
-    <center> {{ error if error != None }}<br>What is the image file to upload?<br><br>
+    <br><b>What is the image file to upload?</b><br><br>
         <div class="a"><input type="file" name="uploadedfile" accept="image/*"></div><br>
-    </center><br>
-
-    <button type="reset" class="btn">Reset</button><br><br>
-    <button type="submit" class="btn">Upload</button>
+    <br>
+    <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="reset" class="btn btn-primary">Reset </button>
+    <button type="submit" class="btn btn-success">Upload</button>
+    </div>
     <br><br>
     {% if url_!=None %}
     <div class="ex1"><img src="{{ url_ }}" alt="image" , style="width:400px",class="center"></div>
     {% endif %}
 
-    <h1>Image2Text Result</h1>
-    <textarea id="sentiment" type="textbox"  rows="35" cols="50">
-        {{text if text != None}}
-    </textarea>
-
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Image2Text Result</label>
+        <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="15">
+            {{text if text != None}}
+        </textarea>
+    </div>
 </form>
+</center>
 
-
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
 
 {% endblock %}

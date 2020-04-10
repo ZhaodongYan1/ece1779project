@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends "user_interface.html" %}
+{% block content %}
+
 <style>
 .textAreaColumn{
     width:100%;
@@ -19,33 +16,28 @@
     display:block;
     text-align:center;
 }
-
-
 </style>
-<body>
 
-<form action="{{url_for('user_interface')}}" method='get' align="left">
-        <button type="submit">Back to Menu</button>
-</form><br>
     <center>
         <h1>Translation</h1>
         <form method='post' action='{{ url_for('translate_submit')}}'>
             <div class="textAreaColumn">
                 <div>
-                    <span>Text Input</span>
+                    <span><b>Text Input</b></span>
                     <textarea class="input-field"  name='text'
                               placeholder="Target text to translate"
                               style="align-content:left" rows="20" cols="80">{{Text if Text != None}}</textarea>
                 </div>
                 <div>
-                    <span>Translation</span>
+                    <span><b>Translation</b></span>
                     <textarea id="translation" type="textbox" style="align-content:left"
                               rows="20" cols="80">{{Translation if Translation != None}}</textarea>
                 </div>
             </div>
-         Target Language:
-
-                <select name="target_lan">
+         <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Translated to: </label>
+          </div>
+                <select class="custom-select" name="target_lan" id="inputGroupSelect01">
                     <option value="en">English</option>
                     <option value="ar">Arabic</option>
                   <option value="zh">Chinese</option>
@@ -80,9 +72,8 @@
                   <option value="ur">Urdu</option>
                   <option value="vi">Vietnamese</option>
                 </select>
-        <button type="submit">Translate</button> <br>
+        <button type="submit" class="btn btn-primary">Translate</button> <br>
 
         </form>
     </center>
-</body>
-</html>
+{% endblock %}

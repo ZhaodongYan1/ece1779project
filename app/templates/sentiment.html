@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends "user_interface.html" %}
+{% block content %}
+
 <style>
 .textAreaColumn{
     width:100%;
@@ -19,33 +16,26 @@
     display:block;
     text-align:center;
 }
-
-
 </style>
-<body>
-
-<form action="{{url_for('user_interface')}}" method='get' align="left">
-        <button type="submit">Back to Menu</button>
-</form><br>
     <center>
         <h1>Sentiment Analysis</h1>
         <form method='post' action='{{ url_for('sentiment_submit')}}'>
             <div class="textAreaColumn">
                 <div>
-                    <span>Text Input</span>
+                    <span><b>Text Input</b></span>
                     <textarea class="input-field"  name='text'
                               placeholder="Target text to analyse"
                               style="align-content:left" rows="20" cols="80">{{Text if Text != None}}</textarea>
                 </div>
                 <div>
-                    <span>Sentiment Analysis</span>
+                    <span><b>Sentiment Analysis</b></span>
                     <textarea id="sentiment" type="textbox" style="align-content:left"
                               rows="20" cols="80">{{sentiment if sentiment != None}}</textarea>
                 </div>
             </div>
-        <button type="submit">Analyze</button> <br>
+        <button type="submit" class="btn btn-primary">Analyze</button> <br>
 
         </form>
     </center>
-</body>
-</html>
+
+{% endblock %}
