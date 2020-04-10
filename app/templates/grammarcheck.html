@@ -18,6 +18,7 @@
 {% extends "user_interface.html" %}
 {% block content %}
 <center>
+<br>
         <h1>Grammar checker</h1>
         <form method='post' action='{{ url_for('grammar_submit')}}'>
             <div class="textAreaColumn">
@@ -27,21 +28,15 @@
                               placeholder="Target text to check"
                               style="align-content:left" rows="20" cols="80">{{Text if Text != None}}</textarea>
                 </div>
-                <div>
-                    <span><b>Grammar check result</b></span>
-                    <textarea class="input-field" name="text"
-                              style="align-content:left" rows="10" cols="80">
-From: {{original if original!= None}}
-                    </textarea>
-                    <textarea class="input-field" name="text"
-                              style="align-content:left" rows="10" cols="80">
-To: {{corrected if corrected!= None}}
-                    </textarea>
-                </div>
             </div>
+    <br><br>
+            <span><b>Grammar check result</b></span><br>
+From: {{original if original!= None}}
+<br>
+To: {{corrected if corrected!= None}}
 <div><button type="submit" class="btn btn-primary">Analyze</button> <br></div>
     </form>
-</center>
+    </center>
 {% endblock %}
 
 
