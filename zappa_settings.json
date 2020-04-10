@@ -19,7 +19,10 @@
             "Effect": "Allow",
             "Action": ["translate:*"],
             "Resource": "*"
+        },{
+            "Effect": "Allow",
+            "Action": ["textract:*"],
+            "Resource": "*"
         }]
     }
 }
-
