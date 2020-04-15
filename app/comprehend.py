@@ -16,7 +16,10 @@ def getSentiment(text):
     text = request.form.get('text')
     response = comprehend.detect_sentiment(Text=text,LanguageCode='en')
     sentiment = response['Sentiment']
-    result = sentiment + '; ' + str(response['SentimentScore'])
+    details = ''
+    for k,v in response['SentimentScore'].items():
+        details += str(k) + ': ' +str(v)+'\n'
+    result = 'Sentiment: ' + sentiment + '\nDetails: \n' + details
     return result
 
 def detectLanguage(text):
